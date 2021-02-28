@@ -1,3 +1,5 @@
+(Note: The repo is customized for debugging and analysis purposes.)
+
 # Answering Questions about Charts and Generating Visual Explanations
 
 This repository includes code and data for the CHI 2020 submission **Answering Questions about Charts and Generating Visual Explanations**.
@@ -27,6 +29,9 @@ Each of the three stages of the pipeline can be run in separation.
 ### Running Stage 1: Extract Data Table and Encodings
 
 Note: the code has only been tested on Google Chrome.
+
+Note: may need to add `host="0.0.0.0"` as argument for flask to accept external connection.
+
 1. Set `curr_visualization` parameter in `js/index.js` to point to the desired visualization.
 
 2. Run local host on the root code directory and open `index.html`, e.g.

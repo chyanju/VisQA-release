@@ -16,7 +16,7 @@ def query_vis_sempre():
     qa_system = tqa.TableQA(VIS_DICTIONARY_FILE_NAME, VIS_BASE_DIR)
 
     parsed_json = request.args
-    session_id = parsed_json["sessionId"]
+    # session_id = parsed_json["sessionId"]
     question_id = parsed_json["questionId"]
     dataset_name = parsed_json["dataset"]
     spec_file_name = parsed_json["specFile"]
@@ -28,11 +28,22 @@ def query_vis_sempre():
 
     vis_query, system_formula, system_answer = qa_system.answer_query(query, target_answer, "Sempre", True)
 
-    result = {"sessionId": session_id, "questionId": question_id, "visQuery": vis_query, "systemAnswer": system_answer, "formula": system_formula}
+    result = {
+        # "sessionId": session_id, 
+        "questionId": question_id, 
+        "visQuery": vis_query, 
+        "systemAnswer": system_answer, 
+        "formula": system_formula,
+        "targetAnswer": target_answer,
+        "dataset": dataset_name,
+        "specFile": spec_file_name,
+        "runtimeFile": runtime_file_name,
+    }
 
-    callback = request.args['callback']
-    content = str(callback) + '(' + json.dumps(result) + ')'
+    # callback = request.args['callback']
+    # content = str(callback) + '(' + json.dumps(result) + ')'
+    content = json.dumps(result)
     return current_app.response_class(content, mimetype='application/javascript')
 
 if __name__ == '__main__':
-    app.run(debug = True, port = FLASK_RUN_PORT)
+    app.run(host="0.0.0.0", debug = True, port = FLASK_RUN_PORT)
