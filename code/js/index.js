@@ -1,9 +1,26 @@
 "use strict"
 
+function findGetParameter(parameterName) {
+    var result = null,
+        tmp = [];
+    location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+          tmp = item.split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+    return result;
+}
+// var curr_visualization = {
+//     dataset: "vega-lite-example-gallery",
+//     name: "bar_grouped",
+//     filename: "bar_grouped.json"
+// };
 var curr_visualization = {
-    dataset: "vega-lite-example-gallery",
-    name: "bar_grouped",
-    filename: "bar_grouped.json"
+    dataset: findGetParameter("dataset"),
+    name: findGetParameter("name"),
+    filename: findGetParameter("name")+".json"
 };
 
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
